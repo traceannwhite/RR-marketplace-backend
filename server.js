@@ -5,6 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const mongoose = require("./db/connection");
 const UserRouter = require("./controllers/User"); //import User Routes
+const ProductRouter = require("./controllers/addProduct"); // import addProduct Routes
 
 // port
 const { PORT } = process.env || 3000;
@@ -20,6 +21,9 @@ app.use(morgan("tiny")); //log request for debugging
 // test the server
 app.get("/", (req, res) => res.send(`Server is working.`));
 // routes
+app.use("/user", UserRouter); // send all "/user" requests to UserRouter for routing
+app.use("/addProduct", ProductRouter); // send all "/addProduct" request to ProductRouter
+
 // app.use("/products");
 // app.use("/____");
 // app.use("/____");

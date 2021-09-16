@@ -1,18 +1,20 @@
-require("dotenv").config();
-const mongoose = require("mongoose");
+require("dotenv").config(); // load .env variables
+const mongoose = require("mongoose"); //import fresh mongoose object
 
-//env variables
+//DESTRUCTURE ENV VARIABLES
 const { URI } = process.env;
 
-const config = {
+// CONNECT TO MONGO
+mongoose.connect = mongoose.connect(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-};
-mongoose.connect(URI, config);
+});
 
-const db = mongoose.connection;
-db.on("connect", () => console.log(`👍🏼 Mongo is connected!`));
-db.on("disconnect", () => console.log(`👋🏼 Mongo is disconnected.`));
-db.on("error", (err) => console.log(`❌ Error connecting ${err}`));
+// CONNECTION EVENTS
+mongoose.connection
+  .on("open", () => console.log("DATABASE STATE", "Connection Open"))
+  .on("close", () => console.log("DATABASE STATE", "Connection Open"))
+  .on("error", (error) => console.log("DATABASE STATE", error));
 
+// EXPORT CONNECTION
 module.exports = mongoose;
