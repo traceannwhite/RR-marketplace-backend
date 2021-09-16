@@ -4,21 +4,23 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const mongoose = require("./db/connection");
-const app = express();
+const UserRouter = require("./controllers/User"); //import User Routes
+
+// port
 const { PORT } = process.env || 3000;
 
-// import any routers
+//application object
+const app = express();
 
 // middleware
-app.use(cors());
-app.use(express.json());
-app.use(morgan("tiny"));
+app.use(cors()); // add cors headers
+app.use(express.json()); //parse json bodies
+app.use(morgan("tiny")); //log request for debugging
 
 // test the server
 app.get("/", (req, res) => res.send(`Server is working.`));
-
-// routes // INCOMPLETE, ADD ROUTES
-app.use("/products");
+// routes
+// app.use("/products");
 // app.use("/____");
 // app.use("/____");
 
